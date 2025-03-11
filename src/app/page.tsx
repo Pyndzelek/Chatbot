@@ -16,8 +16,8 @@ export default function Home() {
 
   const adjustHeight = () => {
     if (textareaRef.current) {
-      textareaRef.current.style.height = "auto"; // Reset height
-      textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`; // Expand based on content
+      textareaRef.current.style.height = "auto";
+      textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
     }
   };
 
