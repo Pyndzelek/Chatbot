@@ -14,7 +14,7 @@ import {
 } from "./sidebar";
 
 const examplePropts = [
-  "Czym zajnuje się IAESTE?",
+  "Czym zajmuję się IAESTE?",
   "Jakie są benefity z IAESTE?",
   "Jakie są wymagania do IAESTE?",
   "Jak wygląda rozmowa rekrutacyjna do do IAESTE?",
@@ -28,7 +28,7 @@ export function AppSidebar() {
       </SidebarHeader>
       <SidebarContent>
         <SidebarGroup>
-          <SidebarGroupLabel>Pytania</SidebarGroupLabel>
+          <SidebarGroupLabel>Historia</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               {examplePropts.map((prompt) => (
