@@ -1,11 +1,5 @@
 import { streamText, UIMessage } from "ai";
 import { openai } from "@ai-sdk/openai";
-import { OpenAI } from "openai";
-import { env } from "process";
-
-const my_openai = new OpenAI({
-  apiKey: env.OPENAI_API_KEY,
-});
 
 export async function POST(req: Request) {
   try {
