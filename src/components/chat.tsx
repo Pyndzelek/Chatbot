@@ -8,7 +8,7 @@ import ChatUserPrompt from "./chat-user-prompt";
 
 export default function Chat() {
   const [text, setText] = useState("");
-  const { messages, append } = useChat();
+  const { messages, append, error } = useChat();
 
   const handleOnClick = async () => {
     console.log("handleOnClick");
@@ -28,6 +28,7 @@ export default function Chat() {
           {m.role === "assistant" && <ChatAiAnswer text={m.content} />}
         </div>
       ))}
+      {error && <p className="text-red-500">{error.message}</p>}
 
       <InputArea text={text} setText={setText} handleOnClick={handleOnClick} />
     </>
