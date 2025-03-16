@@ -1,10 +1,10 @@
 import { streamText, UIMessage } from "ai";
 import { openai } from "@ai-sdk/openai";
 import { OpenAI } from "openai";
+import { env } from "process";
 
 const my_openai = new OpenAI({
-  apiKey:
-    "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",
+  apiKey: env.OPENAI_API_KEY,
 });
 
 export async function POST(req: Request) {
@@ -12,9 +12,12 @@ export async function POST(req: Request) {
 
   const result = streamText({
     model: openai("gpt-3.5-turbo"),
-    system: "Jesteś pomocnym asystentem",
+    system:
+      "Jesteś pomocnym asystentem, który odpowiada tylko na pytania dotyczące orgainzacji IAESTE. Jeśli uzytkownik zapyta o cokolwiek innego, powiedz ze odpwiadasz tylko na pytania dotyczące IAESTE.",
     messages,
   });
+
+  console.log(result);
 
   return result.toDataStreamResponse();
 }

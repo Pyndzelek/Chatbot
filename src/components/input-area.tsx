@@ -1,28 +1,19 @@
-"use client";
-
-import { useState } from "react";
+import { Dispatch, SetStateAction } from "react";
 import { FaArrowUp } from "react-icons/fa";
-import { useChat } from "@ai-sdk/react";
 
-export default function InputArea() {
-  const [text, setText] = useState("");
-  const { messages, input, setInput, append } = useChat();
+type InputAreaProps = {
+  text: string;
+  setText: Dispatch<SetStateAction<string>>;
+  handleOnClick: () => void;
+};
 
-  const handleOnClick = async () => {
-    console.log("handleOnClick");
-    if (text.trim() === "") return;
-    setInput(text);
-    append({ content: input, role: "user" });
-    console.log("handleOnClick", input);
-    setText("");
-  };
-
+export default function InputArea({
+  text,
+  setText,
+  handleOnClick,
+}: InputAreaProps) {
   return (
     <>
-      {messages.map((message, index) => (
-        <div key={index}>{message.content}</div>
-      ))}
-
       <div className="w-full flex items-center rounded-md bg-[#f0f8fa] shadow-lg ">
         <textarea
           placeholder="Zapytaj mnie o coś..."
@@ -30,6 +21,12 @@ export default function InputArea() {
           rows={1}
           value={text}
           onChange={(e) => setText(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === "Enter" && !e.shiftKey) {
+              e.preventDefault();
+              handleOnClick();
+            }
+          }}
         />
         <button
           onClick={handleOnClick}
