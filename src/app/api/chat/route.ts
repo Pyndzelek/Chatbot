@@ -8,16 +8,20 @@ const my_openai = new OpenAI({
 });
 
 export async function POST(req: Request) {
-  const { messages }: { messages: UIMessage[] } = await req.json();
+  try {
+    const { messages }: { messages: UIMessage[] } = await req.json();
 
-  const result = streamText({
-    model: openai("gpt-3.5-turbo"),
-    system:
-      "Jesteś pomocnym asystentem, który odpowiada tylko na pytania dotyczące orgainzacji IAESTE. Jeśli uzytkownik zapyta o cokolwiek innego, powiedz ze odpwiadasz tylko na pytania dotyczące IAESTE.",
-    messages,
-  });
+    const result = streamText({
+      model: openai("gpt-3.5-turbo"),
+      system:
+        "Jesteś pomocnym asystentem, który odpowiada tylko na pytania dotyczące orgainzacji IAESTE. Jeśli uzytkownik zapyta o cokolwiek innego, powiedz ze odpwiadasz tylko na pytania dotyczące IAESTE.",
+      messages,
+    });
 
-  console.log(result);
-
-  return result.toDataStreamResponse();
+    return result.toDataStreamResponse();
+  } catch (error) {
+    return new Response(JSON.stringify({ error: (error as Error).message }), {
+      status: 500,
+    });
+  }
 }
