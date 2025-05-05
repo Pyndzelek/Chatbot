@@ -45,7 +45,7 @@ export default function Chat() {
           {m.role === "assistant" && <ChatAiAnswer text={m.message} />}
         </div>
       ))}
-      {isLoading && "Ładowanie..."}
+      {isLoading && <p>Ładowanie...</p>}
 
       <InputArea text={text} setText={setText} handleOnClick={handleOnClick} />
     </>
