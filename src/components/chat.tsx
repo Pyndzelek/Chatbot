@@ -10,9 +10,11 @@ export default function Chat() {
   const [messages, setMessages] = useState([
     { role: "assistant", message: "Elo elo" },
   ]);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleOnClick = async () => {
     if (text.trim() === "") return;
+    setIsLoading(true);
     setMessages((prev) => [...prev, { role: "user", message: text }]);
     setText("");
 
@@ -31,6 +33,7 @@ export default function Chat() {
       console.error(error);
       setMessages((prev) => [...prev, { role: "assistant", message: "ERROR" }]);
     }
+    setIsLoading(false);
   };
 
   return (
@@ -42,6 +45,7 @@ export default function Chat() {
           {m.role === "assistant" && <ChatAiAnswer text={m.message} />}
         </div>
       ))}
+      {isLoading && "Ładowanie..."}
 
       <InputArea text={text} setText={setText} handleOnClick={handleOnClick} />
     </>
